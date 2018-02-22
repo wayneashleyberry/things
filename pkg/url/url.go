@@ -2,6 +2,7 @@ package url
 
 import (
 	gourl "net/url"
+	"strings"
 	"time"
 )
 
@@ -38,9 +39,7 @@ type Add struct {
 }
 
 func (a Add) URL() string {
-	v := gourl.Values{}
-	v.Add("title", a.Title)
-	return Scheme + "add?" + v.Encode()
+	return Scheme + "add?title=" + strings.Replace(a.Title, " ", "%20", -1)
 }
 
 type AddProject struct {
@@ -58,9 +57,7 @@ type AddProject struct {
 }
 
 func (a AddProject) URL() string {
-	v := gourl.Values{}
-	v.Add("title", a.Title)
-	return Scheme + "add-project?" + v.Encode()
+	return Scheme + "add-project?title=" + strings.Replace(a.Title, " ", "%20", -1)
 }
 
 type AddJSON struct {
