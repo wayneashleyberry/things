@@ -10,3 +10,6 @@ const ShowSomeday = Protocol + "show?id=someday"
 
 const ShowLogbook = Protocol + "show?id=logbook"
 const ShowTrash = Protocol + "show?id=trash"
+
+const ShowID = Protocol + "show?id=%s"
+const ShowQuery = Protocol + "show?query=%s"
