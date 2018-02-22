@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"os/exec"
 
+	"github.com/wayneashleyberry/things/pkg/open"
 	"github.com/wayneashleyberry/things/pkg/url"
 )
 
@@ -63,70 +63,61 @@ func add(title string) {
 	a := url.Add{
 		Title: title,
 	}
-	open(a.URL())
+	open.Open(a.URL())
 }
 
 func addJSON(json string) {
 	a := url.AddJSON{
 		JSON: json,
 	}
-	open(a.URL())
+	open.Open(a.URL())
 }
 
 func addProject(title string) {
 	a := url.AddProject{
 		Title: title,
 	}
-	open(a.URL())
+	open.Open(a.URL())
 }
 
 func search(query string) {
-	open(fmt.Sprintf(url.Search, query))
-}
-
-func open(url string) {
-	log.Println(url)
-	cmd := exec.Command("open", url)
-	err := cmd.Run()
-	if err != nil {
-		log.Fatal(err)
-	}
+	open.Open(fmt.Sprintf(url.Search, query))
 }
 
 func showInbox() {
-	open(url.ShowInbox)
+	open.Open(url.ShowInbox)
 }
 
 func showToday() {
-	open(url.ShowToday)
+	open.Open(url.ShowToday)
 }
 
 func showAnytime() {
-	open(url.ShowAnytime)
+	open.Open(url.ShowAnytime)
 }
 
 func showUpcoming() {
-	open(url.ShowUpcoming)
+	open.Open(url.ShowUpcoming)
 }
 
 func showSomeday() {
-	open(url.ShowSomeday)
+	open.Open(url.ShowSomeday)
 }
 
 func showLogbook() {
-	open(url.ShowLogbook)
+	open.Open(url.ShowLogbook)
 }
 
 func showTrash() {
-	open(url.ShowTrash)
+	open.Open(url.ShowTrash)
 }
 
 func showTask(id string) {
-	open(fmt.Sprintf(url.ShowID, id))
+	open.Open(fmt.Sprintf(url.ShowID, id))
 }
 
 func showQuery(query string) {
-	open(fmt.Sprintf(url.ShowQuery, query))
+	open.Open(fmt.Sprintf(url.ShowQuery, query))
 }
 
 func usage() {
