@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/wayneashleyberry/things/pkg/open"
 	"github.com/wayneashleyberry/things/pkg/url"
@@ -17,11 +18,11 @@ func main() {
 
 	switch os.Args[1] {
 	case "add":
-		add(os.Args[2])
+		add(strings.Join(os.Args[2:], " "))
+	case "add-project":
+		addProject(strings.Join(os.Args[2:], " "))
 	case "add-json":
 		addJSON(os.Args[2])
-	case "add-project":
-		addProject(os.Args[2])
 	case "search":
 		search(os.Args[2])
 	case "show":
@@ -49,7 +50,11 @@ func main() {
 	case "help":
 		switch os.Args[2] {
 		case "show":
-			showUsage()
+			usageShow()
+		case "add":
+			usageAdd()
+		case "add-project":
+			usageAddProject()
 		default:
 			usage()
 		}
@@ -140,7 +145,7 @@ Use "things help [command]" for more information about a command.
 	`)
 }
 
-func showUsage() {
+func usageShow() {
 	fmt.Println(`
 Usage:
 
@@ -157,5 +162,21 @@ The supported arguments are:
 	trash		Show the Trash
 	id		Show a task by ID
 	query		Show a list by query
+`)
+}
+
+func usageAdd() {
+	fmt.Println(`
+Usage:
+
+	things add title
+`)
+}
+
+func usageAddProject() {
+	fmt.Println(`
+Usage:
+
+	things add-project title
 `)
 }

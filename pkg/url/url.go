@@ -70,5 +70,5 @@ type AddJSON struct {
 func (a AddJSON) URL() string {
 	v := gourl.Values{}
 	v.Add("data", a.JSON)
-	return Scheme + "add-json?" + v.Encode()
+	return Scheme + "add-project?" + v.Encode()
 }
