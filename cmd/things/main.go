@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
 
 	"github.com/wayneashleyberry/things/pkg/open"
 	"github.com/wayneashleyberry/things/pkg/url"
@@ -18,9 +17,9 @@ func main() {
 
 	switch os.Args[1] {
 	case "add":
-		add(strings.Join(os.Args[2:], " "))
+		add(os.Args[2])
 	case "add-project":
-		addProject(strings.Join(os.Args[2:], " "))
+		addProject(os.Args[2])
 	case "add-json":
 		addJSON(os.Args[2])
 	case "search":
