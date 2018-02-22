@@ -62,3 +62,13 @@ func (a AddProject) URL() string {
 	v.Add("title", a.Title)
 	return Scheme + "add-project?" + v.Encode()
 }
+
+type AddJSON struct {
+	JSON string
+}
+
+func (a AddJSON) URL() string {
+	v := gourl.Values{}
+	v.Add("data", a.JSON)
+	return Scheme + "add-json?" + v.Encode()
+}

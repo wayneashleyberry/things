@@ -18,6 +18,8 @@ func main() {
 	switch os.Args[1] {
 	case "add":
 		add(os.Args[2])
+	case "add-json":
+		addJSON(os.Args[2])
 	case "add-project":
 		addProject(os.Args[2])
 	case "search":
@@ -60,6 +62,13 @@ func main() {
 func add(title string) {
 	a := url.Add{
 		Title: title,
+	}
+	open(a.URL())
+}
+
+func addJSON(json string) {
+	a := url.AddJSON{
+		JSON: json,
 	}
 	open(a.URL())
 }
@@ -131,6 +140,7 @@ Usage:
 The commands are:
 
 	add		Add a new task
+	add-json	Add a new task using json
 	add-project 	Add a new project
 	show		Show a list in the app
 	search		Search across everything
