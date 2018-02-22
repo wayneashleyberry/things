@@ -169,6 +169,11 @@ func usageAdd() {
 Usage:
 
 	things add title
+
+Examples:
+
+	things add "Clean the Falcon"
+	things add "Call Yoda"
 `)
 }
 
@@ -177,5 +182,9 @@ func usageAddProject() {
 Usage:
 
 	things add-project title
+
+Examples:
+
+	things add-project "Side Projects"
 `)
 }
