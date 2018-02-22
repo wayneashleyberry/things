@@ -16,6 +16,12 @@ func main() {
 	}
 
 	switch os.Args[1] {
+	case "add":
+		add(os.Args[2])
+	case "add-project":
+		addProject(os.Args[2])
+	case "search":
+		search(os.Args[2])
 	case "show":
 		switch os.Args[2] {
 		case "inbox":
@@ -51,7 +57,26 @@ func main() {
 	}
 }
 
+func add(title string) {
+	a := url.Add{
+		Title: title,
+	}
+	open(a.URL())
+}
+
+func addProject(title string) {
+	a := url.AddProject{
+		Title: title,
+	}
+	open(a.URL())
+}
+
+func search(query string) {
+	open(fmt.Sprintf(url.Search, query))
+}
+
 func open(url string) {
+	log.Println(url)
 	cmd := exec.Command("open", url)
 	err := cmd.Run()
 	if err != nil {
@@ -97,7 +122,7 @@ func showQuery(query string) {
 
 func usage() {
 	fmt.Println(`
-Things Unofficial CLI
+Unofficial CLI for Things
 
 Usage:
 
@@ -105,7 +130,10 @@ Usage:
 
 The commands are:
 
-	show	Show a list in the app
+	add		Add a new task
+	add-project 	Add a new project
+	show		Show a list in the app
+	search		Search across everything
 
 Use "things help [command]" for more information about a command.
 	`)
