@@ -14,21 +14,23 @@ func main() {
 	showQuickEntry := false
 	reveal := false
 	notes := ""
+	checklistItems := []string{}
 
 	var cmdAdd = &cobra.Command{
 		Use:   "add",
 		Short: "Add a new to-do",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			add(args[0], completed, canceled, showQuickEntry, reveal, notes)
+			add(args[0], completed, canceled, showQuickEntry, reveal, notes, checklistItems)
 		},
 	}
 
-	cmdAdd.Flags().BoolVarP(&completed, "completed", "", false, "Boolean. Whether or not the to-do should be set to complete. Default: false. Ignored if canceled is also set to true.")
-	cmdAdd.Flags().BoolVarP(&canceled, "canceled", "", false, "Boolean. Whether or not the to-do should be set to canceled. Default: false. Takes priority over completed.")
-	cmdAdd.Flags().BoolVarP(&showQuickEntry, "show-quick-entry", "", false, "Boolean. Whether or not to show the quick entry dialog (populated with the provided data) instead of adding a new to-do. Ignored if titles is specified. Default: false.")
-	cmdAdd.Flags().BoolVarP(&reveal, "reveal", "", false, "Boolean. Whether or not to navigate to and show the newly created to-do. If multiple to-dos have been created, the first one will be shown. Ignored if show-quick-entry is also set to true. Default: false.")
-	cmdAdd.Flags().StringVarP(&notes, "notes", "", "", "String. The text to use for the notes field of the to-do. Maximum unencoded length: 10,000 characters.")
+	cmdAdd.Flags().BoolVarP(&completed, "completed", "", false, "Whether or not the to-do should be set to complete. Default: false. Ignored if canceled is also set to true.")
+	cmdAdd.Flags().BoolVarP(&canceled, "canceled", "", false, "Whether or not the to-do should be set to canceled. Default: false. Takes priority over completed.")
+	cmdAdd.Flags().BoolVarP(&showQuickEntry, "show-quick-entry", "", false, "Whether or not to show the quick entry dialog (populated with the provided data) instead of adding a new to-do. Ignored if titles is specified. Default: false.")
+	cmdAdd.Flags().BoolVarP(&reveal, "reveal", "", false, "Whether or not to navigate to and show the newly created to-do. If multiple to-dos have been created, the first one will be shown. Ignored if show-quick-entry is also set to true. Default: false.")
+	cmdAdd.Flags().StringVarP(&notes, "notes", "", "", "The text to use for the notes field of the to-do. Maximum unencoded length: 10,000 characters.")
+	cmdAdd.Flags().StringArrayVarP(&checklistItems, "checklist-item", "", []string{}, "Checklist items to add to the to-do (maximum of 100).")
 
 	var cmdAddJSON = &cobra.Command{
 		Use:   "add-json",
@@ -171,7 +173,7 @@ func main() {
 	rootCmd.Execute()
 }
 
-func add(title string, completed bool, canceled bool, showQuickEntry bool, reveal bool, notes string) {
+func add(title string, completed bool, canceled bool, showQuickEntry bool, reveal bool, notes string, checklistItems []string) {
 	a := url.Add{
 		Title:          title,
 		Completed:      completed,
@@ -179,6 +181,7 @@ func add(title string, completed bool, canceled bool, showQuickEntry bool, revea
 		ShowQuickEntry: showQuickEntry,
 		Reveal:         reveal,
 		Notes:          notes,
+		ChecklistItems: checklistItems,
 	}
 	open.Open(a.URL())
 }
