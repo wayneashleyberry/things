@@ -73,9 +73,11 @@ func main() {
 		Short: "Add a new to-do from json",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			addJSON(args[0], printURL)
+			addJSON(args[0], reveal, printURL)
 		},
 	}
+
+	cmdAddJSON.Flags().BoolVarP(&reveal, "reveal", "", true, "Whether or not to navigate to and show the newly created to-do. If multiple to-dos have been created, the first one will be shown. Ignored if show-quick-entry is also set to true. Default: false.")
 
 	area := ""
 	areaID := ""
@@ -243,9 +245,10 @@ func main() {
 	rootCmd.Execute()
 }
 
-func addJSON(json string, printURL bool) {
+func addJSON(json string, reveal, printURL bool) {
 	a := url.AddJSON{
-		JSON: json,
+		JSON:   json,
+		Reveal: reveal,
 	}
 	handleURL(a.URL(), printURL)
 }

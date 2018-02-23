@@ -148,12 +148,16 @@ func (a AddProject) URL() string {
 
 // AddJSON contains parameters for adding a new to-do from json
 type AddJSON struct {
-	JSON string
+	JSON   string
+	Reveal bool
 }
 
 // URL builds the URL
 func (a AddJSON) URL() string {
 	v := neturl.Values{}
 	v.Add("data", a.JSON)
+	if a.Reveal {
+		v.Add("reveal", "true")
+	}
 	return Scheme + "add-project?" + v.Encode()
 }
