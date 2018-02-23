@@ -10,6 +10,8 @@
 go get github.com/wayneashleyberry/things/...
 ```
 
+You can also download the latest release [here](https://github.com/wayneashleyberry/things/releases). Please note that as Things is only available on macOS and so are the distributed binaries.
+
 ### Usage
 
 ```
