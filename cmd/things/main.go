@@ -259,7 +259,7 @@ func search(query string, printURL bool) {
 
 func showInbox(filters []string, printURL bool) {
 	s := url.Show{
-		ID:      "inbox",
+		ID:      url.ShowInboxID,
 		Filters: filters,
 	}
 	handleURL(s.URL(), printURL)
@@ -268,7 +268,7 @@ func showInbox(filters []string, printURL bool) {
 
 func showToday(filters []string, printURL bool) {
 	s := url.Show{
-		ID:      "today",
+		ID:      url.ShowTodayID,
 		Filters: filters,
 	}
 	handleURL(s.URL(), printURL)
@@ -276,7 +276,7 @@ func showToday(filters []string, printURL bool) {
 
 func showAnytime(filters []string, printURL bool) {
 	s := url.Show{
-		ID:      "anytime",
+		ID:      url.ShowAnytimeID,
 		Filters: filters,
 	}
 	handleURL(s.URL(), printURL)
@@ -284,7 +284,7 @@ func showAnytime(filters []string, printURL bool) {
 
 func showUpcoming(filters []string, printURL bool) {
 	s := url.Show{
-		ID:      "upcoming",
+		ID:      url.ShowUpcomingID,
 		Filters: filters,
 	}
 	handleURL(s.URL(), printURL)
@@ -292,7 +292,7 @@ func showUpcoming(filters []string, printURL bool) {
 
 func showSomeday(filters []string, printURL bool) {
 	s := url.Show{
-		ID:      "someday",
+		ID:      url.ShowSomedayID,
 		Filters: filters,
 	}
 	handleURL(s.URL(), printURL)
@@ -300,7 +300,7 @@ func showSomeday(filters []string, printURL bool) {
 
 func showLogbook(filters []string, printURL bool) {
 	s := url.Show{
-		ID:      "logbook",
+		ID:      url.ShowLogbookID,
 		Filters: filters,
 	}
 	handleURL(s.URL(), printURL)
@@ -308,7 +308,7 @@ func showLogbook(filters []string, printURL bool) {
 
 func showTrash(filters []string, printURL bool) {
 	s := url.Show{
-		ID:      "trash",
+		ID:      url.ShowTrashID,
 		Filters: filters,
 	}
 	handleURL(s.URL(), printURL)

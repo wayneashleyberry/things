@@ -8,6 +8,27 @@ import (
 // Scheme is the base URL scheme used by all other URL's
 const Scheme = "things:///"
 
+// ShowInboxID is the id for showing the inbox list
+const ShowInboxID = "inbox"
+
+// ShowTodayID is the id for showing the today smart list
+const ShowTodayID = "today"
+
+// ShowAnytimeID is the id for showing the anytime smart list
+const ShowAnytimeID = "anytime"
+
+// ShowUpcomingID is the id for showing the upcoming smart list
+const ShowUpcomingID = "upcoming"
+
+// ShowSomedayID is the id for showing the someday smart list
+const ShowSomedayID = "someday"
+
+// ShowLogbookID is the id for showing the logbook
+const ShowLogbookID = "logbook"
+
+// ShowTrashID is the id for showing the trash
+const ShowTrashID = "trash"
+
 // Show is the URL used to show lists
 type Show struct {
 	ID      string
