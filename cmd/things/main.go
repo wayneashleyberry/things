@@ -123,6 +123,8 @@ func main() {
 		},
 	}
 
+	filters := []string{}
+
 	var cmdShow = &cobra.Command{
 		Use:   "show",
 		Short: "Show a specific list",
@@ -132,11 +134,13 @@ func main() {
 		},
 	}
 
+	cmdShow.PersistentFlags().StringArrayVarP(&filters, "filter", "", []string{}, "Strings corresponding to the titles of tags that the list should be filtered by.")
+
 	var cmdShowInbox = &cobra.Command{
 		Use:   "inbox",
 		Short: "Show the inbox",
 		Run: func(cmd *cobra.Command, args []string) {
-			showInbox(printURL)
+			showInbox(filters, printURL)
 		},
 	}
 
@@ -144,7 +148,7 @@ func main() {
 		Use:   "today",
 		Short: "Show the today smart list",
 		Run: func(cmd *cobra.Command, args []string) {
-			showToday(printURL)
+			showToday(filters, printURL)
 		},
 	}
 
@@ -152,7 +156,7 @@ func main() {
 		Use:   "anytime",
 		Short: "Show the anytime smart list",
 		Run: func(cmd *cobra.Command, args []string) {
-			showAnytime(printURL)
+			showAnytime(filters, printURL)
 		},
 	}
 
@@ -160,7 +164,7 @@ func main() {
 		Use:   "upcoming",
 		Short: "Show the upcoming smart list",
 		Run: func(cmd *cobra.Command, args []string) {
-			showUpcoming(printURL)
+			showUpcoming(filters, printURL)
 		},
 	}
 
@@ -168,7 +172,7 @@ func main() {
 		Use:   "someday",
 		Short: "Show the someday smart list",
 		Run: func(cmd *cobra.Command, args []string) {
-			showSomeday(printURL)
+			showSomeday(filters, printURL)
 		},
 	}
 
@@ -176,7 +180,7 @@ func main() {
 		Use:   "logbook",
 		Short: "Show the logbook",
 		Run: func(cmd *cobra.Command, args []string) {
-			showLogbook(printURL)
+			showLogbook(filters, printURL)
 		},
 	}
 
@@ -184,7 +188,7 @@ func main() {
 		Use:   "trash",
 		Short: "Show trash",
 		Run: func(cmd *cobra.Command, args []string) {
-			showTrash(printURL)
+			showTrash(filters, printURL)
 		},
 	}
 
@@ -193,7 +197,7 @@ func main() {
 		Short: "Show a specific task",
 		Args:  cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			showTask(args[0], printURL)
+			showTask(filters, args[0], printURL)
 		},
 	}
 
@@ -202,7 +206,7 @@ func main() {
 		Short: "Show an area, project, tag or a built-in list by name",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			showQuery(args[0], printURL)
+			showQuery(filters, args[0], printURL)
 		},
 	}
 
@@ -250,39 +254,75 @@ func search(query string, printURL bool) {
 	handleURL(fmt.Sprintf(url.Search, query), printURL)
 }
 
-func showInbox(printURL bool) {
-	handleURL(url.ShowInbox, printURL)
+func showInbox(filters []string, printURL bool) {
+	s := url.Show{
+		ID:      "inbox",
+		Filters: filters,
+	}
+	handleURL(s.URL(), printURL)
 
 }
 
-func showToday(printURL bool) {
-	handleURL(url.ShowToday, printURL)
+func showToday(filters []string, printURL bool) {
+	s := url.Show{
+		ID:      "today",
+		Filters: filters,
+	}
+	handleURL(s.URL(), printURL)
 }
 
-func showAnytime(printURL bool) {
-	handleURL(url.ShowAnytime, printURL)
+func showAnytime(filters []string, printURL bool) {
+	s := url.Show{
+		ID:      "anytime",
+		Filters: filters,
+	}
+	handleURL(s.URL(), printURL)
 }
 
-func showUpcoming(printURL bool) {
-	handleURL(url.ShowUpcoming, printURL)
+func showUpcoming(filters []string, printURL bool) {
+	s := url.Show{
+		ID:      "upcoming",
+		Filters: filters,
+	}
+	handleURL(s.URL(), printURL)
 }
 
-func showSomeday(printURL bool) {
-	handleURL(url.ShowSomeday, printURL)
+func showSomeday(filters []string, printURL bool) {
+	s := url.Show{
+		ID:      "someday",
+		Filters: filters,
+	}
+	handleURL(s.URL(), printURL)
 }
 
-func showLogbook(printURL bool) {
-	handleURL(url.ShowLogbook, printURL)
+func showLogbook(filters []string, printURL bool) {
+	s := url.Show{
+		ID:      "logbook",
+		Filters: filters,
+	}
+	handleURL(s.URL(), printURL)
 }
 
-func showTrash(printURL bool) {
-	handleURL(url.ShowTrash, printURL)
+func showTrash(filters []string, printURL bool) {
+	s := url.Show{
+		ID:      "trash",
+		Filters: filters,
+	}
+	handleURL(s.URL(), printURL)
 }
 
-func showTask(id string, printURL bool) {
-	handleURL(fmt.Sprintf(url.ShowID, id), printURL)
+func showTask(filters []string, id string, printURL bool) {
+	s := url.Show{
+		ID:      id,
+		Filters: filters,
+	}
+	handleURL(s.URL(), printURL)
 }
 
-func showQuery(query string, printURL bool) {
-	handleURL(fmt.Sprintf(url.ShowQuery, query), printURL)
+func showQuery(filters []string, query string, printURL bool) {
+	s := url.Show{
+		Query:   query,
+		Filters: filters,
+	}
+	handleURL(s.URL(), printURL)
 }

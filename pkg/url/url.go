@@ -8,33 +8,27 @@ import (
 // Scheme is the base URL scheme used by all other URL's
 const Scheme = "things:///"
 
-// ShowInbox is the URL used to show the Inbox
-const ShowInbox = Scheme + "show?id=inbox"
+// Show is the URL used to show lists
+type Show struct {
+	ID      string
+	Query   string
+	Filters []string
+}
 
-// ShowToday is the URL used to show the Today smart list
-const ShowToday = Scheme + "show?id=today"
-
-// ShowUpcoming is the URL used to show the Upcoming smart list
-const ShowUpcoming = Scheme + "show?id=upcoming"
-
-// ShowAnytime is the URL used to show the Anytime smart list
-const ShowAnytime = Scheme + "show?id=anytime"
-
-// ShowSomeday is the URL used to show the Someday smart list
-const ShowSomeday = Scheme + "show?id=someday"
-
-// ShowLogbook is the URL for showing the logbook
-const ShowLogbook = Scheme + "show?id=logbook"
-
-// ShowTrash is the URL for showing the trash
-const ShowTrash = Scheme + "show?id=trash"
-
-// ShowID is the URL for showing a specific to-do by ID
-const ShowID = Scheme + "show?id=%s"
-
-// ShowQuery is the URL for showing a area, project, tag or a
-// built-in list by name
-const ShowQuery = Scheme + "show?query=%s"
+// URL implementation
+func (s Show) URL() string {
+	v := neturl.Values{}
+	if s.ID != "" {
+		v.Add("id", s.ID)
+	}
+	if s.Query != "" {
+		v.Add("query", s.Query)
+	}
+	if len(s.Filters) > 0 {
+		v.Add("filter", strings.Join(s.Filters, ","))
+	}
+	return Scheme + "show?" + v.Encode()
+}
 
 // Search is the URL for opening a search query
 const Search = Scheme + "search?query=%s"
