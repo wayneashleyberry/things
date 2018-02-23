@@ -8,7 +8,16 @@ import (
 	"github.com/wayneashleyberry/things/pkg/url"
 )
 
+func handleURL(url string, printURL bool) {
+	if printURL {
+		fmt.Println(url)
+	} else {
+		open.Open(url)
+	}
+}
+
 func main() {
+	printURL := false
 	completed := false
 	canceled := false
 	showQuickEntry := false
@@ -42,7 +51,7 @@ func main() {
 				ListID:         listID,
 				Heading:        heading,
 			}
-			open.Open(a.URL())
+			handleURL(a.URL(), printURL)
 		},
 	}
 
@@ -64,7 +73,7 @@ func main() {
 		Short: "Add a new to-do from json",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			addJSON(args[0])
+			addJSON(args[0], printURL)
 		},
 	}
 
@@ -90,7 +99,7 @@ func main() {
 				AreaID:    areaID,
 				ToDos:     todos,
 			}
-			open.Open(a.URL())
+			handleURL(a.URL(), printURL)
 		},
 	}
 
@@ -119,7 +128,7 @@ func main() {
 		Short: "Search in everything",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			search(args[0])
+			search(args[0], printURL)
 		},
 	}
 
@@ -127,7 +136,7 @@ func main() {
 		Use:   "inbox",
 		Short: "Show the inbox",
 		Run: func(cmd *cobra.Command, args []string) {
-			showInbox()
+			showInbox(printURL)
 		},
 	}
 
@@ -135,7 +144,7 @@ func main() {
 		Use:   "today",
 		Short: "Show the today smart list",
 		Run: func(cmd *cobra.Command, args []string) {
-			showToday()
+			showToday(printURL)
 		},
 	}
 
@@ -143,7 +152,7 @@ func main() {
 		Use:   "anytime",
 		Short: "Show the anytime smart list",
 		Run: func(cmd *cobra.Command, args []string) {
-			showAnytime()
+			showAnytime(printURL)
 		},
 	}
 
@@ -151,7 +160,7 @@ func main() {
 		Use:   "upcoming",
 		Short: "Show the upcoming smart list",
 		Run: func(cmd *cobra.Command, args []string) {
-			showUpcoming()
+			showUpcoming(printURL)
 		},
 	}
 
@@ -159,7 +168,7 @@ func main() {
 		Use:   "someday",
 		Short: "Show the someday smart list",
 		Run: func(cmd *cobra.Command, args []string) {
-			showSomeday()
+			showSomeday(printURL)
 		},
 	}
 
@@ -167,7 +176,7 @@ func main() {
 		Use:   "logbook",
 		Short: "Show the logbook",
 		Run: func(cmd *cobra.Command, args []string) {
-			showLogbook()
+			showLogbook(printURL)
 		},
 	}
 
@@ -175,7 +184,7 @@ func main() {
 		Use:   "trash",
 		Short: "Show trash",
 		Run: func(cmd *cobra.Command, args []string) {
-			showTrash()
+			showTrash(printURL)
 		},
 	}
 
@@ -184,7 +193,7 @@ func main() {
 		Short: "Show a specific task",
 		Args:  cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			showTask(args[0])
+			showTask(args[0], printURL)
 		},
 	}
 
@@ -193,7 +202,7 @@ func main() {
 		Short: "Show an area, project, tag or a built-in list by name",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			showQuery(args[0])
+			showQuery(args[0], printURL)
 		},
 	}
 
@@ -209,6 +218,8 @@ func main() {
 	var rootCmd = &cobra.Command{
 		Use: "things",
 	}
+
+	rootCmd.PersistentFlags().BoolVar(&printURL, "print", false, "Print the URL instead of opening it")
 
 	rootCmd.AddCommand(cmdVersion)
 	rootCmd.AddCommand(cmdAdd)
@@ -228,50 +239,50 @@ func main() {
 	rootCmd.Execute()
 }
 
-func addJSON(json string) {
+func addJSON(json string, printURL bool) {
 	a := url.AddJSON{
 		JSON: json,
 	}
-	open.Open(a.URL())
+	handleURL(a.URL(), printURL)
 }
 
-func search(query string) {
-	open.Open(fmt.Sprintf(url.Search, query))
+func search(query string, printURL bool) {
+	handleURL(fmt.Sprintf(url.Search, query), printURL)
 }
 
-func showInbox() {
-	open.Open(url.ShowInbox)
+func showInbox(printURL bool) {
+	handleURL(url.ShowInbox, printURL)
 
 }
 
-func showToday() {
-	open.Open(url.ShowToday)
+func showToday(printURL bool) {
+	handleURL(url.ShowToday, printURL)
 }
 
-func showAnytime() {
-	open.Open(url.ShowAnytime)
+func showAnytime(printURL bool) {
+	handleURL(url.ShowAnytime, printURL)
 }
 
-func showUpcoming() {
-	open.Open(url.ShowUpcoming)
+func showUpcoming(printURL bool) {
+	handleURL(url.ShowUpcoming, printURL)
 }
 
-func showSomeday() {
-	open.Open(url.ShowSomeday)
+func showSomeday(printURL bool) {
+	handleURL(url.ShowSomeday, printURL)
 }
 
-func showLogbook() {
-	open.Open(url.ShowLogbook)
+func showLogbook(printURL bool) {
+	handleURL(url.ShowLogbook, printURL)
 }
 
-func showTrash() {
-	open.Open(url.ShowTrash)
+func showTrash(printURL bool) {
+	handleURL(url.ShowTrash, printURL)
 }
 
-func showTask(id string) {
-	open.Open(fmt.Sprintf(url.ShowID, id))
+func showTask(id string, printURL bool) {
+	handleURL(fmt.Sprintf(url.ShowID, id), printURL)
 }
 
-func showQuery(query string) {
-	open.Open(fmt.Sprintf(url.ShowQuery, query))
+func showQuery(query string, printURL bool) {
+	handleURL(fmt.Sprintf(url.ShowQuery, query), printURL)
 }
