@@ -32,7 +32,7 @@ func main() {
 	heading := ""
 
 	var cmdAdd = &cobra.Command{
-		Use:   "add",
+		Use:   "add [title]",
 		Short: "Add a new to-do",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
@@ -84,7 +84,7 @@ func main() {
 	todos := []string{}
 
 	var cmdAddProject = &cobra.Command{
-		Use:   "add-project",
+		Use:   "add-project [title]",
 		Short: "Add a new project",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
@@ -117,7 +117,7 @@ func main() {
 	cmdAddProject.Flags().StringArrayVarP(&todos, "to-do", "", []string{}, "Titles of to-dos to create inside the project.")
 
 	var cmdSearch = &cobra.Command{
-		Use:   "search",
+		Use:   "search [query]",
 		Short: "Search in everything",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
