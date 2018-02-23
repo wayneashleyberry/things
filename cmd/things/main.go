@@ -68,14 +68,42 @@ func main() {
 		},
 	}
 
+	area := ""
+	areaID := ""
+	todos := []string{}
+
 	var cmdAddProject = &cobra.Command{
 		Use:   "add-project",
 		Short: "Add a new project",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			addProject(args[0])
+			a := url.AddProject{
+				Title:     args[0],
+				Completed: completed,
+				Canceled:  canceled,
+				Reveal:    reveal,
+				Notes:     notes,
+				When:      when,
+				Deadline:  deadline,
+				Tags:      tags,
+				Area:      area,
+				AreaID:    areaID,
+				ToDos:     todos,
+			}
+			open.Open(a.URL())
 		},
 	}
+
+	cmdAddProject.Flags().BoolVarP(&completed, "completed", "", false, "Whether or not the to-do should be set to complete. Default: false. Ignored if canceled is also set to true.")
+	cmdAddProject.Flags().BoolVarP(&canceled, "canceled", "", false, "Whether or not the to-do should be set to canceled. Default: false. Takes priority over completed.")
+	cmdAddProject.Flags().BoolVarP(&reveal, "reveal", "", true, "Whether or not to navigate to and show the newly created to-do. If multiple to-dos have been created, the first one will be shown. Ignored if show-quick-entry is also set to true. Default: false.")
+	cmdAddProject.Flags().StringVarP(&notes, "notes", "", "", "The text to use for the notes field of the to-do. Maximum unencoded length: 10,000 characters.")
+	cmdAddProject.Flags().StringVarP(&when, "when", "", "", "Possible values: today, tomorrow, evening, anytime, someday, a date string, or a date time string. Using a date time string adds a reminder for that time. The time component is ignored if anytime or someday is specified.")
+	cmdAddProject.Flags().StringVarP(&deadline, "deadline", "", "", "The deadline to apply to the to-do.")
+	cmdAddProject.Flags().StringArrayVarP(&tags, "tag", "", []string{}, "Strings corresponding to the titles of tags. Does not apply a tag if the specified tag doesn’t exist.")
+	cmdAddProject.Flags().StringVarP(&area, "area", "", "", "The title of an area to add to. Ignored if area-id is present.")
+	cmdAddProject.Flags().StringVarP(&areaID, "area-id", "", "", "The ID of an area to add to. Takes precedence over area.")
+	cmdAddProject.Flags().StringArrayVarP(&todos, "to-do", "", []string{}, "Titles of to-dos to create inside the project.")
 
 	var cmdShow = &cobra.Command{
 		Use:   "show",
@@ -203,13 +231,6 @@ func main() {
 func addJSON(json string) {
 	a := url.AddJSON{
 		JSON: json,
-	}
-	open.Open(a.URL())
-}
-
-func addProject(title string) {
-	a := url.AddProject{
-		Title: title,
 	}
 	open.Open(a.URL())
 }

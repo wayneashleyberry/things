@@ -3,7 +3,6 @@ package url
 import (
 	neturl "net/url"
 	"strings"
-	"time"
 )
 
 // Scheme is the base URL scheme used by all other URL's
@@ -108,8 +107,8 @@ type AddProject struct {
 	Canceled  bool
 	Reveal    bool
 	Notes     string
-	When      time.Time
-	Deadline  time.Time
+	When      string
+	Deadline  string
 	Tags      []string
 	Area      string
 	AreaID    string
@@ -120,6 +119,36 @@ type AddProject struct {
 func (a AddProject) URL() string {
 	v := neturl.Values{}
 	v.Add("title", a.Title)
+	if a.Completed {
+		v.Add("completed", "true")
+	}
+	if a.Canceled {
+		v.Add("canceled", "true")
+	}
+	if a.Reveal {
+		v.Add("reveal", "true")
+	}
+	if a.Notes != "" {
+		v.Add("notes", a.Notes)
+	}
+	if a.When != "" {
+		v.Add("when", a.When)
+	}
+	if a.Deadline != "" {
+		v.Add("deadline", a.Deadline)
+	}
+	if len(a.Tags) > 0 {
+		v.Add("tags", strings.Join(a.Tags, ","))
+	}
+	if a.Area != "" {
+		v.Add("area", a.Area)
+	}
+	if a.AreaID != "" {
+		v.Add("area-id", a.AreaID)
+	}
+	if len(a.ToDos) > 0 {
+		v.Add("to-dos", strings.Join(a.ToDos, "\n"))
+	}
 	return Scheme + "add-project?" + v.Encode()
 }
 
