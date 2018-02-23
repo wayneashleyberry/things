@@ -10,19 +10,19 @@ go get github.com/wayneashleyberry/things/...
 ### Usage
 
 ```
-Unofficial CLI for Things
-
 Usage:
+  things [command]
 
-	things command [arguments]
+Available Commands:
+  add         Add a new to-do
+  add-json    Add a new to-do from json
+  add-project Add a new project
+  help        Help about any command
+  search      Search in everything
+  show        Show a specific list
 
-The commands are:
+Flags:
+  -h, --help   help for things
 
-	add		Add a new task
-	add-json	Add a new task using json
-	add-project 	Add a new project
-	show		Show a list in the app
-	search		Search across everything
-
-Use "things help [command]" for more information about a command.
+Use "things [command] --help" for more information about a command.
 ```
