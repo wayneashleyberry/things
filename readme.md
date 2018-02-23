@@ -1,4 +1,5 @@
 [![GoDoc](https://godoc.org/github.com/wayneashleyberry/things?status.svg)](https://godoc.org/github.com/wayneashleyberry/things)
+[![wercker status](https://app.wercker.com/status/e6ccd0b98c2015a26ba316868c7b40ae/s/master "wercker status")](https://app.wercker.com/project/byKey/e6ccd0b98c2015a26ba316868c7b40ae)
 [![Go Report Card](https://goreportcard.com/badge/github.com/wayneashleyberry/things)](https://goreportcard.com/report/github.com/wayneashleyberry/things)
 
 > URL Scheme helper command and package for [Things 3.4](https://culturedcode.com/things/blog/2018/02/hey-things/)
