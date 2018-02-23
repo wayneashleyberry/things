@@ -79,6 +79,18 @@ func (a Add) URL() string {
 	if len(a.ChecklistItems) > 0 {
 		v.Add("checklist-items", strings.Join(a.ChecklistItems, "\n"))
 	}
+	if len(a.Tags) > 0 {
+		v.Add("tags", strings.Join(a.Tags, ","))
+	}
+	if a.List != "" {
+		v.Add("list", a.List)
+	}
+	if a.ListID != "" {
+		v.Add("list-id", a.ListID)
+	}
+	if a.Heading != "" {
+		v.Add("heading", a.Heading)
+	}
 	url := Scheme + "add?" + v.Encode()
 	return strings.TrimRight(url, "&")
 }

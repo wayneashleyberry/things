@@ -15,13 +15,30 @@ func main() {
 	reveal := false
 	notes := ""
 	checklistItems := []string{}
+	tags := []string{}
+	list := ""
+	listID := ""
+	heading := ""
 
 	var cmdAdd = &cobra.Command{
 		Use:   "add",
 		Short: "Add a new to-do",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			add(args[0], completed, canceled, showQuickEntry, reveal, notes, checklistItems)
+			a := url.Add{
+				Title:          args[0],
+				Completed:      completed,
+				Canceled:       canceled,
+				ShowQuickEntry: showQuickEntry,
+				Reveal:         reveal,
+				Notes:          notes,
+				ChecklistItems: checklistItems,
+				Tags:           tags,
+				List:           list,
+				ListID:         listID,
+				Heading:        heading,
+			}
+			open.Open(a.URL())
 		},
 	}
 
@@ -31,6 +48,10 @@ func main() {
 	cmdAdd.Flags().BoolVarP(&reveal, "reveal", "", false, "Whether or not to navigate to and show the newly created to-do. If multiple to-dos have been created, the first one will be shown. Ignored if show-quick-entry is also set to true. Default: false.")
 	cmdAdd.Flags().StringVarP(&notes, "notes", "", "", "The text to use for the notes field of the to-do. Maximum unencoded length: 10,000 characters.")
 	cmdAdd.Flags().StringArrayVarP(&checklistItems, "checklist-item", "", []string{}, "Checklist items to add to the to-do (maximum of 100).")
+	cmdAdd.Flags().StringArrayVarP(&tags, "tag", "", []string{}, "Strings corresponding to the titles of tags. Does not apply a tag if the specified tag doesn’t exist.")
+	cmdAdd.Flags().StringVarP(&list, "list", "", "", "The title of a project or area to add to. Ignored if list-id is present.")
+	cmdAdd.Flags().StringVarP(&listID, "list-id", "", "", "The ID of a project or area to add to. Takes precedence over list.")
+	cmdAdd.Flags().StringVarP(&heading, "heading", "", "", "The title of a heading within a project to add to. Ignored if a project is not specified, or if the heading doesn't exist.")
 
 	var cmdAddJSON = &cobra.Command{
 		Use:   "add-json",
@@ -171,19 +192,6 @@ func main() {
 	cmdShow.AddCommand(cmdShowTask)
 	cmdShow.AddCommand(cmdShowQuery)
 	rootCmd.Execute()
-}
-
-func add(title string, completed bool, canceled bool, showQuickEntry bool, reveal bool, notes string, checklistItems []string) {
-	a := url.Add{
-		Title:          title,
-		Completed:      completed,
-		Canceled:       canceled,
-		ShowQuickEntry: showQuickEntry,
-		Reveal:         reveal,
-		Notes:          notes,
-		ChecklistItems: checklistItems,
-	}
-	open.Open(a.URL())
 }
 
 func addJSON(json string) {
