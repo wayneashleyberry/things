@@ -90,8 +90,7 @@ func (a Add) URL() string {
 	if a.Heading != "" {
 		v.Add("heading", a.Heading)
 	}
-	url := Scheme + "add?" + v.Encode()
-	return strings.TrimRight(url, "&")
+	return Scheme + "add?" + strings.Replace(v.Encode(), "+", "%20", -1)
 }
 
 // AddProject contains parameters for adding a new project
@@ -143,7 +142,7 @@ func (a AddProject) URL() string {
 	if len(a.ToDos) > 0 {
 		v.Add("to-dos", strings.Join(a.ToDos, "\n"))
 	}
-	return Scheme + "add-project?" + v.Encode()
+	return Scheme + "add-project?" + strings.Replace(v.Encode(), "+", "%20", -1)
 }
 
 // AddJSON contains parameters for adding a new to-do from json
