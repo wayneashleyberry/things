@@ -114,21 +114,21 @@ func main() {
 	cmdAddProject.Flags().StringVarP(&areaID, "area-id", "", "", "The ID of an area to add to. Takes precedence over area.")
 	cmdAddProject.Flags().StringArrayVarP(&todos, "to-do", "", []string{}, "Titles of to-dos to create inside the project.")
 
-	var cmdShow = &cobra.Command{
-		Use:   "show",
-		Short: "Show a specific list",
-		Args:  cobra.ExactArgs(1),
-		Run: func(cmd *cobra.Command, args []string) {
-			//
-		},
-	}
-
 	var cmdSearch = &cobra.Command{
 		Use:   "search",
 		Short: "Search in everything",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
 			search(args[0], printURL)
+		},
+	}
+
+	var cmdShow = &cobra.Command{
+		Use:   "show",
+		Short: "Show a specific list",
+		Args:  cobra.ExactArgs(1),
+		Run: func(cmd *cobra.Command, args []string) {
+			//
 		},
 	}
 
