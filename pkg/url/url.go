@@ -60,10 +60,23 @@ type Add struct {
 // URL builds the URL
 func (a Add) URL() string {
 	v := neturl.Values{}
+	v.Add("title", a.Title)
 	if a.Completed {
 		v.Add("completed", "true")
 	}
-	url := Scheme + "add?title=" + strings.Replace(a.Title, " ", "%20", -1) + "&" + v.Encode()
+	if a.Canceled {
+		v.Add("canceled", "true")
+	}
+	if a.Reveal {
+		v.Add("reveal", "true")
+	}
+	if a.ShowQuickEntry {
+		v.Add("show-quick-entry", "true")
+	}
+	if a.Notes != "" {
+		v.Add("notes", a.Notes)
+	}
+	url := Scheme + "add?" + v.Encode()
 	return strings.TrimRight(url, "&")
 }
 
@@ -84,7 +97,9 @@ type AddProject struct {
 
 // URL builds the URL
 func (a AddProject) URL() string {
-	return Scheme + "add-project?title=" + strings.Replace(a.Title, " ", "%20", -1)
+	v := neturl.Values{}
+	v.Add("title", a.Title)
+	return Scheme + "add-project?" + v.Encode()
 }
 
 // AddJSON contains parameters for adding a new to-do from json

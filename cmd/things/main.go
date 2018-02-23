@@ -10,17 +10,25 @@ import (
 
 func main() {
 	completed := false
+	canceled := false
+	showQuickEntry := false
+	reveal := false
+	notes := ""
 
 	var cmdAdd = &cobra.Command{
 		Use:   "add",
 		Short: "Add a new to-do",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			add(args[0], completed)
+			add(args[0], completed, canceled, showQuickEntry, reveal, notes)
 		},
 	}
 
 	cmdAdd.Flags().BoolVarP(&completed, "completed", "", false, "Boolean. Whether or not the to-do should be set to complete. Default: false. Ignored if canceled is also set to true.")
+	cmdAdd.Flags().BoolVarP(&canceled, "canceled", "", false, "Boolean. Whether or not the to-do should be set to canceled. Default: false. Takes priority over completed.")
+	cmdAdd.Flags().BoolVarP(&showQuickEntry, "show-quick-entry", "", false, "Boolean. Whether or not to show the quick entry dialog (populated with the provided data) instead of adding a new to-do. Ignored if titles is specified. Default: false.")
+	cmdAdd.Flags().BoolVarP(&reveal, "reveal", "", false, "Boolean. Whether or not to navigate to and show the newly created to-do. If multiple to-dos have been created, the first one will be shown. Ignored if show-quick-entry is also set to true. Default: false.")
+	cmdAdd.Flags().StringVarP(&notes, "notes", "", "", "String. The text to use for the notes field of the to-do. Maximum unencoded length: 10,000 characters.")
 
 	var cmdAddJSON = &cobra.Command{
 		Use:   "add-json",
@@ -132,7 +140,20 @@ func main() {
 		},
 	}
 
-	var rootCmd = &cobra.Command{Use: "things"}
+	var cmdVersion = &cobra.Command{
+		Use:   "version",
+		Short: "Print things version",
+		Args:  cobra.ExactArgs(1),
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("1.0.0")
+		},
+	}
+
+	var rootCmd = &cobra.Command{
+		Use: "things",
+	}
+
+	rootCmd.AddCommand(cmdVersion)
 	rootCmd.AddCommand(cmdAdd)
 	rootCmd.AddCommand(cmdAddJSON)
 	rootCmd.AddCommand(cmdAddProject)
@@ -150,10 +171,14 @@ func main() {
 	rootCmd.Execute()
 }
 
-func add(title string, completed bool) {
+func add(title string, completed bool, canceled bool, showQuickEntry bool, reveal bool, notes string) {
 	a := url.Add{
-		Title:     title,
-		Completed: completed,
+		Title:          title,
+		Completed:      completed,
+		Canceled:       canceled,
+		ShowQuickEntry: showQuickEntry,
+		Reveal:         reveal,
+		Notes:          notes,
 	}
 	open.Open(a.URL())
 }
