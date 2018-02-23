@@ -69,7 +69,7 @@ func main() {
 	cmdAdd.Flags().StringVarP(&heading, "heading", "", "", "The title of a heading within a project to add to. Ignored if a project is not specified, or if the heading doesn't exist.")
 
 	var cmdAddJSON = &cobra.Command{
-		Use:   "add-json",
+		Use:   "add-json [json]",
 		Short: "Add a new to-do from json",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
