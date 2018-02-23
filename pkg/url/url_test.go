@@ -25,3 +25,25 @@ func TestProject(t *testing.T) {
 		t.Errorf("expected %s, got %s", exptected, got)
 	}
 }
+
+func TestShowQuery(t *testing.T) {
+	s := Show{
+		Query: "test project",
+	}
+	exptected := "things:///show?query=test%20project"
+	got := s.URL()
+	if got != exptected {
+		t.Errorf("expected %s, got %s", exptected, got)
+	}
+}
+
+func TestShowQueryWithSpaces(t *testing.T) {
+	s := Show{
+		Query: "+test",
+	}
+	exptected := "things:///show?query=%2Btest"
+	got := s.URL()
+	if got != exptected {
+		t.Errorf("expected %s, got %s", exptected, got)
+	}
+}

@@ -48,7 +48,7 @@ func (s Show) URL() string {
 	if len(s.Filters) > 0 {
 		v.Add("filter", strings.Join(s.Filters, ","))
 	}
-	return Scheme + "show?" + v.Encode()
+	return Scheme + "show?" + strings.Replace(v.Encode(), "+", "%20", -1)
 }
 
 // Search is the URL for opening a search query
