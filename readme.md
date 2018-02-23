@@ -1,6 +1,8 @@
 [![GoDoc](https://godoc.org/github.com/wayneashleyberry/things?status.svg)](https://godoc.org/github.com/wayneashleyberry/things)
 [![Go Report Card](https://goreportcard.com/badge/github.com/wayneashleyberry/things)](https://goreportcard.com/report/github.com/wayneashleyberry/things)
 
+> URL Scheme helper command and package for [Things 3.4](https://culturedcode.com/things/blog/2018/02/hey-things/)
+
 ### Installation
 
 ```
@@ -26,3 +28,7 @@ Flags:
 
 Use "things [command] --help" for more information about a command.
 ```
+
+### Disclaimer
+
+This is not an official [Cultured Code](https://culturedcode.com/) product, I'm just a big fan.
