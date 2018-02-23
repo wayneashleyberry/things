@@ -15,6 +15,8 @@ func main() {
 	reveal := false
 	notes := ""
 	checklistItems := []string{}
+	when := ""
+	deadline := ""
 	tags := []string{}
 	list := ""
 	listID := ""
@@ -33,6 +35,8 @@ func main() {
 				Reveal:         reveal,
 				Notes:          notes,
 				ChecklistItems: checklistItems,
+				When:           when,
+				Deadline:       deadline,
 				Tags:           tags,
 				List:           list,
 				ListID:         listID,
@@ -45,10 +49,12 @@ func main() {
 	cmdAdd.Flags().BoolVarP(&completed, "completed", "", false, "Whether or not the to-do should be set to complete. Default: false. Ignored if canceled is also set to true.")
 	cmdAdd.Flags().BoolVarP(&canceled, "canceled", "", false, "Whether or not the to-do should be set to canceled. Default: false. Takes priority over completed.")
 	cmdAdd.Flags().BoolVarP(&showQuickEntry, "show-quick-entry", "", false, "Whether or not to show the quick entry dialog (populated with the provided data) instead of adding a new to-do. Ignored if titles is specified. Default: false.")
-	cmdAdd.Flags().BoolVarP(&reveal, "reveal", "", false, "Whether or not to navigate to and show the newly created to-do. If multiple to-dos have been created, the first one will be shown. Ignored if show-quick-entry is also set to true. Default: false.")
+	cmdAdd.Flags().BoolVarP(&reveal, "reveal", "", true, "Whether or not to navigate to and show the newly created to-do. If multiple to-dos have been created, the first one will be shown. Ignored if show-quick-entry is also set to true. Default: false.")
 	cmdAdd.Flags().StringVarP(&notes, "notes", "", "", "The text to use for the notes field of the to-do. Maximum unencoded length: 10,000 characters.")
 	cmdAdd.Flags().StringArrayVarP(&checklistItems, "checklist-item", "", []string{}, "Checklist items to add to the to-do (maximum of 100).")
 	cmdAdd.Flags().StringArrayVarP(&tags, "tag", "", []string{}, "Strings corresponding to the titles of tags. Does not apply a tag if the specified tag doesn’t exist.")
+	cmdAdd.Flags().StringVarP(&when, "when", "", "", "Possible values: today, tomorrow, evening, anytime, someday, a date string, or a date time string. Using a date time string adds a reminder for that time. The time component is ignored if anytime or someday is specified.")
+	cmdAdd.Flags().StringVarP(&deadline, "deadline", "", "", "The deadline to apply to the to-do.")
 	cmdAdd.Flags().StringVarP(&list, "list", "", "", "The title of a project or area to add to. Ignored if list-id is present.")
 	cmdAdd.Flags().StringVarP(&listID, "list-id", "", "", "The ID of a project or area to add to. Takes precedence over list.")
 	cmdAdd.Flags().StringVarP(&heading, "heading", "", "", "The title of a heading within a project to add to. Ignored if a project is not specified, or if the heading doesn't exist.")

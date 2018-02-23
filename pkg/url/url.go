@@ -49,8 +49,8 @@ type Add struct {
 	Reveal         bool
 	Notes          string
 	ChecklistItems []string
-	When           time.Time
-	Deadline       time.Time
+	When           string
+	Deadline       string
 	Tags           []string
 	List           string
 	ListID         string
@@ -78,6 +78,12 @@ func (a Add) URL() string {
 	}
 	if len(a.ChecklistItems) > 0 {
 		v.Add("checklist-items", strings.Join(a.ChecklistItems, "\n"))
+	}
+	if a.When != "" {
+		v.Add("when", a.When)
+	}
+	if a.Deadline != "" {
+		v.Add("deadline", a.Deadline)
 	}
 	if len(a.Tags) > 0 {
 		v.Add("tags", strings.Join(a.Tags, ","))
