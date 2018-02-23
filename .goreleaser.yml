@@ -1,0 +1,9 @@
+# .goreleaser.yml
+# Build customization
+builds:
+  - main: cmd/things/main.go
+    binary: things
+    goos:
+      - darwin
+    goarch:
+      - amd64
