@@ -217,7 +217,7 @@ func main() {
 		Short: "Print things version",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("1.0.0")
+			fmt.Println("1.0.3")
 		},
 	}
 
