@@ -25,9 +25,11 @@ Available Commands:
   help        Help about any command
   search      Search in everything
   show        Show a specific list
+  version     Print things version
 
 Flags:
-  -h, --help   help for things
+  -h, --help    help for things
+      --print   Print the URL instead of opening it
 
 Use "things [command] --help" for more information about a command.
 ```
