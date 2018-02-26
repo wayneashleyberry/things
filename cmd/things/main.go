@@ -132,7 +132,7 @@ func main() {
 		Short: "Show a specific list",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			//
+			showQuery(filters, args[0], printURL)
 		},
 	}
 
