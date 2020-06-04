@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
 	"github.com/wayneashleyberry/things/pkg/open"
@@ -241,7 +242,12 @@ func main() {
 	cmdShow.AddCommand(cmdShowTrash)
 	cmdShow.AddCommand(cmdShowTask)
 	cmdShow.AddCommand(cmdShowQuery)
-	rootCmd.Execute()
+
+	err := rootCmd.Execute()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 }
 
 func addJSON(json string, reveal, printURL bool) {
