@@ -1,5 +1,5 @@
-[![GoDoc](https://godoc.org/github.com/wayneashleyberry/things?status.svg)](https://godoc.org/github.com/wayneashleyberry/things)
-[![wercker status](https://app.wercker.com/status/e6ccd0b98c2015a26ba316868c7b40ae/s/master "wercker status")](https://app.wercker.com/project/byKey/e6ccd0b98c2015a26ba316868c7b40ae)
+[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white)](https://pkg.go.dev/github.com/wayneashleyberry/things?tab=overview)
+![Go](https://github.com/wayneashleyberry/things/workflows/Go/badge.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/wayneashleyberry/things)](https://goreportcard.com/report/github.com/wayneashleyberry/things)
 
 > URL Scheme helper command and package for [Things 3.4](https://culturedcode.com/things/blog/2018/02/hey-things/)
